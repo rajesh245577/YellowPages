@@ -1,0 +1,55 @@
+/* WorkerListPage.css */
+
+.page-container {
+    padding: 1.5rem;
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .worker-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .worker-item {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .worker-item p {
+    margin: 0.5rem 0;
+  }
+  
+  .worker-item strong {
+    font-weight: bold;
+  }
+  
+  .btn-book{
+    background-color: rgb(68, 163, 68);
+    width: 70px;
+    height: 40px;
+    border-color:white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgb(121, 121, 121);
+
+  }
+
+  .search-container {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .search-input {
+    padding: 8px 12px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  

@@ -1,0 +1,78 @@
+.worker-profile-container1 {
+    padding: 20px;
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+}
+
+.worker-profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.worker-profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.worker-profile-form input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+.worker-profile-submit {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.worker-profile-submit:hover {
+    background-color: #45a049;
+}
+
+.worker-profile-edit-toggle {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #f0ad4e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.worker-profile-edit-toggle:hover {
+    background-color: #ec971f;
+}
+
+.booking-card {
+    background-color: #f0f0f0; /* slight grey */
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', 'Segoe UI', sans-serif; /* Modern fonts */
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .booking-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .booking-card h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #444;
+  }
+  
+  

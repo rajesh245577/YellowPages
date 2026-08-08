@@ -1,0 +1,66 @@
+/* Parent container for the grid */
+.worker-card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 24px; /* Gap between cards */
+    justify-items: center;
+    align-items: start;
+    padding: 24px;
+  }
+  
+  /* Card styling */
+  .worker-card {
+    width: 240px;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    background-color: white;
+    transition: transform 0.2s ease;
+    display: inline-block;
+  }
+  
+  .worker-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  /* Image styling */
+  .worker-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  
+  /* Title styling */
+  .worker-title {
+    margin-top: 12px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* Button styling */
+  .view-button {
+    margin-top: 12px;
+    padding: 8px 16px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .view-button:hover {
+    background-color: #2563eb;
+  }
+  
+  /* Optional: For mobile responsiveness, adjust columns */
+  @media (max-width: 768px) {
+    .worker-card-container {
+      grid-template-columns: 1fr; /* Single column on small screens */
+    }
+  }
+  

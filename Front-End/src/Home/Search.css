@@ -1,0 +1,32 @@
+.SearchBar{
+    width: 700px;
+    height: 30px;
+    border-radius: 30px;
+    padding:20px;
+    font-style: italic;
+    font-size: large;
+    box-shadow: 2px 2px 12px 9px rgb(87, 84, 84);
+    border-width: 0px;
+    margin-top: 50px;
+    margin-left: 100px;
+}
+
+.hii{
+   color:red;
+   display: inline-block;
+   margin-top: 50px;
+   margin-left: 100px;
+}
+
+h1{
+    color:rgb(238, 206, 25);
+    margin-top:20px;
+}
+.SearchBar:hover{
+    border-color: rgb(209, 179, 9);
+    box-shadow: 2px 2px 12px 9px rgb(209, 179, 9);
+    border-width: 2px;
+    transition: 1s;
+    
+
+}
