@@ -42,7 +42,7 @@ const WorkerProfile = () => {
                     workType: workerData.workType || ''               // Assuming it's in the worker data
                 });
             } catch (error) {
-                console.error("❌ Error fetching worker details:", error);
+                console.error("Error fetching worker details:", error);
                 alert("Failed to load worker profile.");
             }
             
@@ -60,7 +60,7 @@ const WorkerProfile = () => {
           const data = await res.json();
           setBooking(data); // Assuming data is an array
         } catch (err) {
-          console.log("❌ Error getting user data..", err);
+          console.log("Error getting user data..", err);
         }
       };
       
@@ -75,11 +75,11 @@ const WorkerProfile = () => {
 
         try {
             const response = await axios.put(`https://yellowpages-backend-ixbs.onrender.com/updateworker/${id}`, form);
-            alert("✅ Profile updated successfully!");
+            alert("Profile updated successfully!");
             setWorker(response.data);
             setEditable(false);
         } catch (error) {
-            console.error("❌ Error updating profile:", error);
+            console.error("Error updating profile:", error);
             alert("Failed to update profile.");
         }
     };
