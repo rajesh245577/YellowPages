@@ -13,7 +13,7 @@ export default function LoginWorker() {
 
         try {
             // Make POST request using axios
-            const res = await axios.post('http://localhost:5000/loginWorker', {
+            const res = await axios.post('https://yellowpages-backend-ixbs.onrender.com/loginWorker', {
                 email,
                 password
             });

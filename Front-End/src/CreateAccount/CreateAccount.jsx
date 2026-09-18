@@ -27,7 +27,7 @@ export default function CreateAccount() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/register', form);
+            const response = await axios.post('https://yellowpages-backend-ixbs.onrender.com/register', form);
             alert(response.data); // shows backend message
             navigate("/");
         } catch (error) {

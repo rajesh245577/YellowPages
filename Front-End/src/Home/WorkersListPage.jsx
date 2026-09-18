@@ -9,7 +9,7 @@ export default function WorkerListPage() {
   const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
-    fetch(`http://localhost:5000/workers/${type}`)
+    fetch(`https://yellowpages-backend-ixbs.onrender.com/workers/${type}`)
       .then(res => res.json())
       .then(data => {
         setWorkers(data);
@@ -23,7 +23,7 @@ export default function WorkerListPage() {
 
   const handleData = async (emailW) => {
     try {
-      const response = await fetch(`http://localhost:5000/workerbook/${email}/${emailW}`, {
+      const response = await fetch(`https://yellowpages-backend-ixbs.onrender.com/workerbook/${email}/${emailW}`, {
         method: 'PUT',
       });
       if (!response.ok) {

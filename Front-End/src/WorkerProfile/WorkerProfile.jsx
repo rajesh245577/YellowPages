@@ -26,7 +26,7 @@ const WorkerProfile = () => {
 
         const fetchWorker = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/worker/${id}`);
+                const response = await axios.get(`https://yellowpages-backend-ixbs.onrender.com/worker/${id}`);
                 const workerData = response.data;
                 setWorker(workerData);
                 setForm({
@@ -56,7 +56,7 @@ const WorkerProfile = () => {
 
     const getdata = async () => {
         try {
-          const res = await fetch(`http://localhost:5000/bookingdata/${id}`);
+          const res = await fetch(`https://yellowpages-backend-ixbs.onrender.com/bookingdata/${id}`);
           const data = await res.json();
           setBooking(data); // Assuming data is an array
         } catch (err) {
@@ -74,7 +74,7 @@ const WorkerProfile = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.put(`http://localhost:5000/updateworker/${id}`, form);
+            const response = await axios.put(`https://yellowpages-backend-ixbs.onrender.com/updateworker/${id}`, form);
             alert("✅ Profile updated successfully!");
             setWorker(response.data);
             setEditable(false);

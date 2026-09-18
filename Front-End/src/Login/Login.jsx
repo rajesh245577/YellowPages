@@ -10,7 +10,7 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const res = await fetch('http://localhost:5000/loginUser', {
+        const res = await fetch('https://yellowpages-backend-ixbs.onrender.com/loginUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

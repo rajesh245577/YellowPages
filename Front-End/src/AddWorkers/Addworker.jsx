@@ -26,7 +26,7 @@ export default function Addworkers() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/addworker', form);
+            const response = await axios.post('https://yellowpages-backend-ixbs.onrender.com/addworker', form);
             alert(response.data);
 
             setForm({
