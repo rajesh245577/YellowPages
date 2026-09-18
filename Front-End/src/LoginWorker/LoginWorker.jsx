@@ -61,6 +61,7 @@ export default function LoginWorker() {
                 </div>
                 <button type="submit" className="login-btn">Login</button>
             </form>
+            <h5>Create a <Link to="/Add">New Account</Link></h5>
             <br />
         </div>
     );

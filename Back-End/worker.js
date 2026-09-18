@@ -8,7 +8,6 @@ const workerSchema = new mongoose.Schema({
     pincode: String,
     categoryOfWork: String,
     yearOfExperience: String,
-   
 });
 
 module.exports= mongoose.model('Worker', workerSchema);

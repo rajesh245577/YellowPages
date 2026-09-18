@@ -1,34 +1,159 @@
 const express = require('express');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const User = require('./user');
 const Worker = require('./worker');
+require("dotenv").config();
+
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const Booking=require("./BookingDetails")
 
 // MongoDB connection
-mongoose.connect('mongodb+srv://nandha:123nandha@cluster0.lqtgmgv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("Connected to MongoDB"))
     .catch(err => console.error("MongoDB connection error:", err));
 
 app.use(cors());
 app.use(express.json());
 
-// Add Worker
-app.post('/addworker', async (req, res) => {
-    const { name, email, password, address, district, pincode, categoryOfWork, yearOfExperience } = req.body;
+//Login user
+app.post('/loginUser', async (req, res) => {
+    const { email, password } = req.body;
 
-    if (!name || !email || !password || !address || !district || !pincode || !categoryOfWork || !yearOfExperience) {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        return res.status(401).send("Invalid Credentials");
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+        return res.status(401).send("Invalid Credentials");
+    }
+
+    res.send("Login success");
+});
+
+// Login Worker
+app.post('/loginWorker', async (req, res) => {
+    const { email, password } = req.body;
+
+    const worker = await Worker.findOne({ email });
+
+    if (!worker) {
+        return res.status(401).send("Invalid Credentials");
+    }
+
+    const isMatch = await bcrypt.compare(password, worker.password);
+
+    if (!isMatch) {
+        return res.status(401).send("Invalid Credentials");
+    }
+
+    res.json({
+        message: "Login successful",
+        data: { email: worker.email }
+    });
+});
+
+
+// Register User
+app.post('/register', async (req, res) => {
+    const { name, email, password, address, pincode, district, mobileno, telephoneno } = req.body;
+
+    if (!name || !email || !password) {
         return res.status(400).send("All fields are required");
     }
 
     try {
-        const newWorker = new Worker({ name, email, password, address, district, pincode, categoryOfWork, yearOfExperience });
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword,
+            address,
+            pincode,
+            district,
+            mobileno,
+            telephoneno
+        });
+
+        await newUser.save();
+
+        res.send(`Welcome, ${name}!`);
+        console.log("User created:", name, email);
+
+    } catch (err) {
+        if (err.code === 11000) {
+            res.status(400).send("Email already exists");
+        } else {
+            console.error(err);
+            res.status(500).send("Server error");
+        }
+    }
+});
+
+//register worker
+app.post('/addworker', async (req, res) => {
+    const {
+        name,
+        email,
+        password,
+        address,
+        district,
+        pincode,
+        categoryOfWork,
+        yearOfExperience
+    } = req.body;
+
+    if (!name || !email || !password || !address || !district ||
+        !pincode || !categoryOfWork || !yearOfExperience) {
+        return res.status(400).send("All fields are required");
+    }
+
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newWorker = new Worker({
+            name,
+            email,
+            password: hashedPassword,
+            address,
+            district,
+            pincode,
+            categoryOfWork,
+            yearOfExperience
+        });
+
         await newWorker.save();
+
         res.send(`Worker ${name} added successfully`);
+
     } catch (error) {
         console.error("Add Worker Error:", error);
+        res.status(500).send("Server Error");
+    }
+});
+
+
+// Update Worker Profile by Email (updated)
+app.put('/updateworker/:id', async (req, res) => {
+    try {
+        const updatedWorker = await Worker.findOneAndUpdate(
+            { email: req.params.id }, // ✅ match by email
+            req.body,
+            { new: true }
+        );
+        if (!updatedWorker) {
+            return res.status(404).send("Worker not found");
+        }
+        res.json(updatedWorker);
+    } catch (error) {
+        console.error("Error updating worker:", error);
         res.status(500).send("Server Error");
     }
 });
@@ -79,32 +204,7 @@ app.put("/workerbook/:email/:emailW", async (req, res) => {
     }
   });
 
-// Login for User
-app.post('/loginUser', async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
 
-    if (!user || user.password !== password) {
-        return res.status(401).send("Invalid Credentials");
-    }
-   
-    res.send("Login success");
-});
-
-// Login for Worker
-app.post('/loginWorker', async (req, res) => {
-    const { email, password } = req.body;
-    const worker = await Worker.findOne({ email });
-
-    if (!worker || worker.password !== password) {
-        return res.status(401).send("Invalid Credentials");
-    }
-
-    res.json({
-        message: "Login successful",
-        data: { email: worker.email }
-    });
-});
 
 // Get Worker Profile by Email (updated)
 app.get('/worker/:id', async (req, res) => {
@@ -125,48 +225,8 @@ app.get('/workers/:type', async (req, res) => {
     const Workers = await Worker.find({ categoryOfWork: type });
     res.json(Workers); // Always send 200
   });
-  
 
-// Update Worker Profile by Email (updated)
-app.put('/updateworker/:id', async (req, res) => {
-    try {
-        const updatedWorker = await Worker.findOneAndUpdate(
-            { email: req.params.id }, // ✅ match by email
-            req.body,
-            { new: true }
-        );
-        if (!updatedWorker) {
-            return res.status(404).send("Worker not found");
-        }
-        res.json(updatedWorker);
-    } catch (error) {
-        console.error("Error updating worker:", error);
-        res.status(500).send("Server Error");
-    }
-});
-
-// Register User
-app.post('/register', async (req, res) => {
-    const { name, email, password, address, pincode, district, mobileno, telephoneno } = req.body;
-
-    if (!name || !email || !password) {
-        return res.status(400).send("All fields are required");
-    }
-
-    try {
-        const newUser = new User({ name, email, password, address, pincode, district, mobileno, telephoneno });
-        await newUser.save();
-        res.send(`Welcome, ${name}!`);
-        console.log("User created:", name, email);
-    } catch (err) {
-        if (err.code === 11000) {
-            res.status(400).send("Email already exists");
-        } else {
-            res.status(500).send("Server error");
-        }
-    }
-});
 
 app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
