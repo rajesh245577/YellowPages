@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { data, useParams } from 'react-router-dom';
-import './Workerprofile.css';
+import './WorkersProfile.css';
 
 const WorkerProfile = () => {
     const { id } = useParams(); // email passed as :id
