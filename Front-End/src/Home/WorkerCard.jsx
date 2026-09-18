@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import "./WorkerCard.css";
+import "./WorkersCard.css";
 
 export default function WorkerCard({ title, image ,email}) {
   const navigate = useNavigate();
